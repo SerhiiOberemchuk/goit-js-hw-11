@@ -22,21 +22,52 @@ const form = document.querySelector('.search-form');
 form.addEventListener('submit', getUser);
 const gallery = document.querySelector('.gallery');
 const buttonLoad = document.querySelector('.load-more');
-buttonLoad.addEventListener('click', onClick);
 
 async function getUser(event) {
   event.preventDefault();
   const input = form.querySelector('input[name="searchQuery"]');
-  console.log(input.value);
-
+  buttonLoad.style.display = 'none';
+  // console.log(input.value);
+  gallery.innerHTML = '';
+  let pages = 1;
   try {
     const response = await axios.get(
-      `https://pixabay.com/api/?key=${apiKey}&q=${input.value}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=1`
+      `https://pixabay.com/api/?key=${apiKey}&q=${input.value}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${pages}`
     );
-    console.log();
+    console.log(response);
+
+    if (response.data.totalHits === 0) {
+      errorMesage();
+      return;
+    }
     Notify.success(`Hooray! We found ${response.data.totalHits} images.`);
     renderImage(response);
+
     buttonLoad.style.display = 'block';
+    buttonLoad.addEventListener('click', onClick);
+    async function onClick(event) {
+      pages += 1;
+      console.log(pages);
+      const response = await axios.get(
+        `https://pixabay.com/api/?key=${apiKey}&q=${input.value}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${pages}`
+      );
+
+      console.log(response);
+      if (response.data.hits.length === 0) {
+        Notify.info(
+          "We're sorry, but you've reached the end of search results.",
+          {
+            position: 'center-center',
+            timeout: 1000,
+            width: '400px',
+            fontSize: '24px',
+          }
+        );
+        buttonLoad.style.display = 'none';
+        return;
+      }
+      renderImage(response);
+    }
     // return response;
   } catch (error) {
     console.error(error);
@@ -44,8 +75,11 @@ async function getUser(event) {
     // return error;
   }
 }
+// function getResponse(params) {}
+
 function renderImage(dataGet) {
   const arrayData = dataGet.data.hits;
+
   const marcup = arrayData
     .map(
       item => `<div class="photo-card">
@@ -69,7 +103,7 @@ function renderImage(dataGet) {
     )
     .join('');
 
-  gallery.innerHTML = marcup;
+  gallery.insertAdjacentHTML('beforeend', marcup);
 
   let lightbox = new SimpleLightbox('.gallery__link', {
     captionsData: 'alt',
