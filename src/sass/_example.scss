@@ -71,16 +71,17 @@
 }
 .load-more {
   color: aliceblue;
-  background-color: blue;
+  background-color: blue ;
   border: none;
   border-radius: 4px;
-  // margin-top: 10px;
-  // margin-bottom: 10px;
-  // margin-left: auto;
-  // margin-right: auto;
   margin: 10px auto;
   min-width: 400px;
   padding: 10px;
   cursor: pointer;
   display: none;
+  transition: background-color var(--animation-duration) var(--timing-function);
+  
+}
+.load-more:hover{
+  background-color: darkblue ;
 }
