@@ -74,6 +74,7 @@ buttonLoad.addEventListener('click', async () => {
     renderImage(click);
     showButton();
     updateStatusLoadButton(click);
+    scrollPage();
   } catch (error) {
     console.log(error);
     infoMessage();
@@ -88,7 +89,9 @@ async function loadMore() {
 }
 
 function updateStatusLoadButton(params) {
-  if (pages >= params.data.totalHits / per_page) {
+  const pagesTotal = Math.ceil(params.data.totalHits / per_page);
+  console.log(pagesTotal);
+  if (pages > pagesTotal) {
     infoMessage();
     hideButton();
     // return;
@@ -131,16 +134,13 @@ function startSimpleLightbox() {
   lightbox.refresh();
 }
 
-// // const { height: cardHeight } = document
-// //   .querySelector('.gallery')
-// //   .firstElementChild.getBoundingClientRect();
-
-// const scrr = document
-//   .querySelector('.gallery')
-//   .firstElementChild.getBoundingClientRect();
-
-// console.log(scrr);
-// window.scrollBy({
-//   top: cardHeight * 2,
-//   behavior: 'smooth',
-// });
+function scrollPage() {
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
+  console.log({ height: cardHeight });
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
+}
