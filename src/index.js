@@ -124,15 +124,14 @@ function renderImage(dataGet) {
     .join('');
 
   gallery.insertAdjacentHTML('beforeend', markup);
-  startSimpleLightbox();
-}
-function startSimpleLightbox() {
+  // startSimpleLightbox();
   let lightbox = new SimpleLightbox('.gallery__link', {
     captionsData: 'alt',
     captionDelay: 250,
   });
   lightbox.refresh();
 }
+// function startSimpleLightbox() {}
 
 function scrollPage() {
   const { height: cardHeight } = document
