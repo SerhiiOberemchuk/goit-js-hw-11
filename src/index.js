@@ -91,7 +91,7 @@ async function loadMore() {
 function updateStatusLoadButton(params) {
   const pagesTotal = Math.ceil(params.data.totalHits / per_page);
   console.log(pagesTotal);
-  if (pages > pagesTotal) {
+  if (pages >= pagesTotal) {
     infoMessage();
     hideButton();
     // return;
@@ -143,3 +143,20 @@ function scrollPage() {
     behavior: 'smooth',
   });
 }
+
+// const scrollUpBtn = document.getElementById('scrollUp');
+// const scrollDownBtn = document.getElementById('scrollDown');
+
+// scrollUpBtn.addEventListener('click', () => {
+//   window.scrollTo({
+//     top: 0,
+//     behavior: 'smooth',
+//   });
+// });
+
+// scrollDownBtn.addEventListener('click', () => {
+//   window.scrollTo({
+//     top: document.body.scrollHeight,
+//     behavior: 'smooth',
+//   });
+// });
