@@ -60,6 +60,7 @@ async function fetchPosts(event) {
     successMessage(response);
     renderImage(response);
     showButton();
+    updateStatusLoadButton(response);
   } catch (error) {
     console.error(error);
     errorMesage();
@@ -90,8 +91,8 @@ async function loadMore() {
 
 function updateStatusLoadButton(params) {
   const pagesTotal = Math.ceil(params.data.totalHits / per_page);
-  console.log(pagesTotal);
-  if (pages >= pagesTotal) {
+  // console.log(pagesTotal);
+  if (pages >= pagesTotal || params.data.totalHits <= per_page) {
     infoMessage();
     hideButton();
     // return;
