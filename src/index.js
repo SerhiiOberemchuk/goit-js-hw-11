@@ -145,19 +145,19 @@ function scrollPage() {
   });
 }
 
-// const scrollUpBtn = document.getElementById('scrollUp');
-// const scrollDownBtn = document.getElementById('scrollDown');
+const scrollUpBtn = document.getElementById('scrollUp');
+const scrollDownBtn = document.getElementById('scrollDown');
 
-// scrollUpBtn.addEventListener('click', () => {
-//   window.scrollTo({
-//     top: 0,
-//     behavior: 'smooth',
-//   });
-// });
+scrollUpBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+});
 
-// scrollDownBtn.addEventListener('click', () => {
-//   window.scrollTo({
-//     top: document.body.scrollHeight,
-//     behavior: 'smooth',
-//   });
-// });
+scrollDownBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: 'smooth',
+  });
+});
